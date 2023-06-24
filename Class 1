@@ -1,0 +1,84 @@
+select * from customer limit 10 OFFSET 1;
+SELECT 
+round (sum(C_ACCTBAL),0) as Total_Account_Balance,
+round (avg(C_ACCTBAL),0) as Average_Account_Balance,
+round (min(c_acctbal),0) as Minimum_Account_Balance
+FROM CUSTOMER;
+select  n.n_name as Nation_Name, c.c_mktsegment Market_Segment,
+round (sum(C.C_ACCTBAL),0) as Total_Account_Balance,
+round (avg(C.c_acctbal),0) as Average_Account_Balance
+from customer c
+left join nation n on c.c_nationkey = n.n_nationkey
+group by 1,2
+order by 1 asc, 3 desc;
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT 
+P.p_type as Product_type, sum(l_quantity) as Total_product
+from lineitem as L
+join part as P on L.l_partkey = P.p_partkey
+group by Product_type
+order by total_product desc limit 10;
+
+SELECT P.P_TYPE AS PRODUCT_TYPE, SUM(L.L_QUANTITY) AS TOTAL_ITEMS_SOLD 
+FROM LINEITEM AS L
+JOIN PART AS P ON L.L_PARTKEY = P.P_PARTKEY
+GROUP BY PRODUCT_TYPE
+ORDER BY TOTAL_ITEMS_SOLD DESC
+LIMIT 10;
+
+
+
+
+
+
+
+
+
+
+
+
+select * from orders limit 5
+select * from lineitem limit 5 ---L_PARTLEY]
+where l_orderkey = 600001;
+
+select * from lineitem 
+where l_orderkey = 600001;
+
+
+select * from part limit 10;--P_PARTKEY Primary key
+select distinct p_type from part;
+select count(distinct p_type) as Unique_
+
+Product_type_Count from part;
+
+--WHAT ARE THE TOP 10 SOLD PRODUCTS
+--L_QUANTITY, L_EXTENDEDPRICE*L_DISCOUNT*L_TAX
+
+select * from lineitem limit 5;
+
+select DISTINCT year(l_receiptdate) as year from    lineitem order by 1;
+
+SELECT P.P_TYPE AS PRODUCT_TYPE, SUM(L.L_QUANTITY) AS Top_selling_products
+FROM LINEITEM AS L
+JOIN PART AS P ON L.L_PARTKEY = P.P_PARTKEY
+where year(l_receiptdate) > 1995
+GROUP BY PRODUCT_TYPE
+having Top_selling_products >= 464118
+ORDER BY Top_selling_products DESC;
+
+
+select dayname(o_orderdate) as Daynames, round (sum(o_totalprice),0)  as Day_wise_total_sales
+from orders
+group by 1
+order by 2 desc;
